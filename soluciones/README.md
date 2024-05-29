@@ -1,0 +1,1 @@
+Creamos el chart en helm  con helm create <chart name>
