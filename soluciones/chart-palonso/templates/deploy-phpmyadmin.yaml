@@ -1,41 +1,41 @@
-{{- if .Values.phpmyadminIsDeployed }}
+{{- if .Values.chartPalonso.phpmyadmin.enabled }}
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-phpmyadmin-deploy
-  namespace: {{.Values.namespace}}
+  namespace: {{ .Values.namespace }}
 spec:
-  selector:  
+  selector:
     matchLabels:
       app: phpmyadmin
-  replicas: {{.Values.phpmyadminReplicas}}
-  template:  
+  replicas: 1
+  template:
     metadata:
       labels:
         app: phpmyadmin
     spec:
       containers:
       - name: phpmyadmin
-        image: "phpmyadmin:{{.Values.phpmyadminTag}}"
+        image: {{ .Values.chartPalonso.image.phpmyadmin }}
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
         env:
           - name: PMA_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-datos-phpmyadmin
-                key: DB_DATABASE_HOST
+            value: {{ .Release.Name }}-mysql-service
           - name: PMA_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Release.Name }}-datos-phpmyadmin
-                key: DB_DATABASE_PORT_NUMBER
+            value: "3306"
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Release.Name }}-phpmyadmin-credentials
-                key: DB_ROOT_PASSWORD
+                name: mysql-credentials
+                key: root-password
           - name: APACHE_PORT
             value: "8090"
-                
-{{- end}}
+{{- end }}

@@ -1,6 +1,9 @@
 apiVersion: v2
 name: chart-palonso
-description: A Helm chart for Kubernetes
+
+description: A Helm chart for deploying Laravel with MySQL and optionally phpMyAdmin
+
+
 
 # A chart can be either an 'application' or a 'library' chart.
 #

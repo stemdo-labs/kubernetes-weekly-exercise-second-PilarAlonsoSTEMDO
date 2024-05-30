@@ -1,15 +1,14 @@
-{{- if .Values.phpmyadminIsDeployed }}
+{{- if .Values.chartPalonso.phpmyadmin.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-phpmyadmin-service
-  namespace: {{.Values.namespace}}
-  labels:
-     app: phpmyadmin
+  namespace: {{ .Values.namespace }}
 spec:
-  type: NodePort
-  ports:
-  - port: 8090 #80
   selector:
-     app: phpmyadmin
-{{- end}}
+    app: phpmyadmin
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+{{- end }}

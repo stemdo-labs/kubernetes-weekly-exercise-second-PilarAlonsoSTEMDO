@@ -1,0 +1,12 @@
+{{- if .Values.chartPalonso.phpmyadmin.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-mysql-config
+  namespace: {{ .Values.namespace }}
+data:
+  DB_DATABASE: {{ .Values.chartPalonso.resources.mysql.credentials.database }}
+  DB_DATABASE_HOST: {{ .Release.Name }}-mysql-service.{{ .Values.namespace }}.svc.cluster.local
+  DB_DATABASE_PORT_NUMBER: "3306"
+  DB_DATABASE_USER: {{ .Values.chartPalonso.resources.mysql.credentials.userDb }}
+{{- end }}

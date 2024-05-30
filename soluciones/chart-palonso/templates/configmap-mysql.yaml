@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  DB_DATABASE: {{.Values.chartPalonso.resources.mysql.credentials.database}}
+  DB_DATABASE_HOST: {{ .Release.Name }}-mysql-service
+  DB_DATABASE_PORT_NUMBER: "3306"
+  DB_DATABASE_USER: {{.Values.chartPalonso.resources.mysql.credentials.userDb}}
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-datos-mysql
+  namespace: {{.Values.namespace}}
+  

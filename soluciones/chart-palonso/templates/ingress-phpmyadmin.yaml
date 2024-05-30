@@ -1,0 +1,21 @@
+{{- if .Values.chartPalonso.phpmyadmin.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-phpmyadmin-ingress
+  namespace: {{ .Values.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: {{ .Values.ingress.hosts.phpmyadmin }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-phpmyadmin-service
+            port:
+              number: 80
+{{- end }}

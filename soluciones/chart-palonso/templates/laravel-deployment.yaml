@@ -1,48 +1,42 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: laravel-deploy
-  namespace: laravel2
+  name: {{ .Release.Name }}-laravel-deploy
+  namespace: {{ .Values.namespace }}
 spec:
-  selector:  
+  selector:
     matchLabels:
       app: laravel
-  replicas: 1
-  strategy:
-     type: Recreate
-  template:   
+  replicas: {{ .Values.replicaCount }}
+  template:
     metadata:
       labels:
         app: laravel
     spec:
       containers:
       - name: laravel
+        image: {{ .Values.chartPalonso.image.laravel }}
         ports:
         - containerPort: 8000
-        image: bitnami/laravel:11.0.8
-        env:
-          - name: LARAVEL_DATABASE_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: datos-mariadb
-                key: DB_DATABASE_HOST
-          - name: LARAVEL_DATABASE_PORT_NUMBER
-            valueFrom:
-              configMapKeyRef:
-                name: datos-mariadb
-                key: DB_DATABASE_PORT_NUMBER
-          - name: LARAVEL_DATABASE_USER
-            valueFrom:
-              configMapKeyRef:
-                name: datos-mariadb
-                key: DB_DATABASE_USER
-          - name: LARAVEL_DATABASE_NAME
-            valueFrom:
-              configMapKeyRef:
-                name: datos-mariadb
-                key: DB_DATABASE
-          - name: LARAVEL_DATABASE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: DB_DATABASE_PASSWORD
+        resources:
+          requests:
+            cpu: {{ .Values.chartPalonso.resources.laravel.requests.cpu }}
+            memory: {{ .Values.chartPalonso.resources.laravel.requests.memory }}
+          limits:
+            cpu: {{ .Values.chartPalonso.resources.laravel.limits.cpu }}
+            memory: {{ .Values.chartPalonso.resources.laravel.limits.memory }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        volumeMounts:
+        - name: laravel-volume
+          mountPath: /path/to/laravel/data
+      volumes:
+      - name: laravel-volume
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-pvc-laravel
