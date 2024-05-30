@@ -1,36 +1,53 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/PgEYonWG)
-# initial-instructions
+# chart-palonso
+![Sin título-2024-04-11-1642](https://github.com/stemdo-labs/kubernetes-weekly-exercise-second-PilarAlonsoSTEMDO/assets/166375061/1b59f79e-891b-48ee-b59e-a0faacebc8a9)
 
-Manten los apartados `Estructura del Repositorio` , `Contribución` y modifica el resto de apartados
+## Descripción
 
-
-## Ejercicios de Kubernetes para iniciarse en el Mundo de DevOps
-
-¡Bienvenido/a a los ejercicios básicos de Kubernetes para iniciarse en el mundo de DevOps!
-
-Este repositorio contiene una serie de ejercicios diseñados para ayudarte a familiarizarte con los conceptos básicos de Kubernetes. 
-Los ejercicios están diseñados para ser completados en un entorno local o en un clúster de Kubernetes, y cubren una variedad de temas, desde la creación de pods y servicios hasta la implementación de aplicaciones en Kubernetes.
-
-## Objetivos
-
-El propósito principal de estos ejercicios es proporcionarte una introducción práctica a los conceptos clave de Kubernetes que son esenciales para cualquier persona interesada en trabajar en el área de DevOps. Al completar estos ejercicios, esperamos que adquieras experiencia práctica con:
-
-- Creación de pods y servicios en Kubernetes.
-- Implementación de aplicaciones en Kubernetes.
+Este chart despliega una aplicación Laravel con una base de datos MySQL y opcionalmente phpMyAdmin en un clúster de Kubernetes.
 
 
-## Estructura del Repositorio
+## Valores de Configuración
 
-Este repositorio está organizado de la siguiente manera:
+### Configuraciones Globales
 
+- `namespace`: Nombre del namespace donde se desplegarán los recursos.
 
-- El directorio `enunciados/` contiene los ejercicios propuestos en este repositorio. Cada archivo proporciona una descripción detallada de los objetivos del ejercicio, así como instrucciones paso a paso sobre lo que se espera que completes.
-- El archivo `ASSIGMENT.md` proporciona instrucciones sobre cómo enviar tus soluciones una vez que completes los ejercicios.
-- El directorio `soluciones/` será el lugar donde almacenar las soluciones a los ejercicios.
-- El directorio `auxiliar/` (opcional) contiene los archivos necesarios para completar los ejercicios. Puedes incluir scripts, archivos de configuración, archivos de texto para edición, etc.
-- El directorio `datos/` (opcional) contiene conjuntos de datos u otros archivos de entrada que pueden ser necesarios para los ejercicios.
-- El archivo `CONTRIBUTING.md` proporciona instrucciones sobre cómo contribuir al repositorio.
+### Laravel
 
-## Contribución
+- `chartPalonso.image.laravel`: Imagen de Docker para Laravel.
+- `chartPalonso.resources.laravel.requests`: Requests de recursos para Laravel.
+- `chartPalonso.resources.laravel.limits`: Límites de recursos para Laravel.
+- `chartPalonso.persistence.laravel`: Configuración del volumen persistente para Laravel.
 
-¡Tus contribuciones son bienvenidas! Si tienes ideas para nuevos ejercicios o mejoras para los existentes, no dudes en abrir un issue o abrir un pull request.
+### MySQL
+
+- `chartPalonso.image.mysql`: Imagen de Docker para MySQL.
+- `chartPalonso.resources.mysql.requests`: Requests de recursos para MySQL.
+- `chartPalonso.resources.mysql.limits`: Límites de recursos para MySQL.
+- `chartPalonso.persistence.mysql`: Configuración del volumen persistente para MySQL.
+
+### phpMyAdmin (Opcional)
+
+- `chartPalonso.phpmyadmin.enabled`: Habilita o deshabilita phpMyAdmin.
+- `chartPalonso.image.phpmyadmin`: Imagen de Docker para phpMyAdmin.
+- `chartPalonso.phpmyadmin.auth`: Configuración de autenticación para phpMyAdmin.
+
+### Ingress
+
+- `chartPalonso.ingress.enabled`: Habilita o deshabilita Ingress.
+- `chartPalonso.ingress.hosts`: Configuración de los hosts para Laravel y phpMyAdmin.
+
+### CronJob (Opcional)
+
+- `chartPalonso.cronjob.enabled`: Habilita o deshabilita el CronJob de backup.
+- `chartPalonso.cronjob.schedule`: Configuración del cron para el backup.
+- `chartPalonso.cronjob.image`: Imagen de Docker para el CronJob.
+- `chartPalonso.cronjob.persistence`: Configuración del volumen persistente para los backups.
+
+## Ejemplos
+
+### Despliegue de Laravel y MySQL
+
+```sh
+helm install my-release -f values-example-laravel.yaml ./chart-palonso
+
