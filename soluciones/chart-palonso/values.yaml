@@ -1,4 +1,72 @@
-# Default values for chart-palonso.
+#############################################
+# CUSTOM VALUES FOR CHART-PALONSO
+#############################################
+namespace: laravel3
+
+chartPalonso:
+  image:
+    laravel: bitnami/laravel:11.0.8
+    mysql: mysql:8.0
+    phpmyadmin: phpmyadmin:5.2.1
+
+  resources:
+    laravel:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    mysql:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+      credentials:
+        database: mydb
+        userDb: pilar
+        passwordDb: pilar
+        passwordRoot: root
+
+
+  persistence:
+    laravel:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+    mysql:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+
+  ingress:
+    enabled: true
+    hosts:
+      laravel: laravel.local
+      phpmyadmin: phpmyadmin.local
+
+  phpmyadmin:
+    enabled: false
+    auth:
+      username: admin
+      password: admin
+
+  cronjob:
+    enabled: false
+    schedule: "0 0 * * *"
+    image: mysql:8.0
+    backupPath: /backups
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+#############################################
+# END
+#############################################
+
+
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
