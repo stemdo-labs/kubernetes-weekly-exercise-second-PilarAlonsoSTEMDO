@@ -2,11 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-pvc-mysql
-  namespace: {{ .Values.namespace }}
+  namespace: {{.Values.namespace}}
 spec:
   storageClassName: sc-laravel
   accessModes:
-    - {{ .Values.chartPalonso.persistence.mysql.accessMode }}
+    - {{.Values.chartPalonso.persistence.mysql.accessMode}}
   resources:
     requests:
-      storage: {{ .Values.chartPalonso.persistence.mysql.size }}
+      storage: {{.Values.chartPalonso.persistence.mysql.size}}
