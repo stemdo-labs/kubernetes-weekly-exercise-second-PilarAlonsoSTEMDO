@@ -30,7 +30,6 @@ chartPalonso:
         passwordDb: pilar
         passwordRoot: root
 
-
   persistence:
     laravel:
       enabled: true
@@ -65,7 +64,6 @@ chartPalonso:
 #############################################
 # END
 #############################################
-
 
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.

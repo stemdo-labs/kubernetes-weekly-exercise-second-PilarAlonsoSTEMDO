@@ -1,8 +1,10 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-   name: {{ .Release.Name }}-sc-laravel
-   namespace: {{.Values.namespace}}
+  name: sc-laravel
 provisioner: k8s.io/minikube-hostpath
 volumeBindingMode: Immediate
 reclaimPolicy: Delete
+
+
+

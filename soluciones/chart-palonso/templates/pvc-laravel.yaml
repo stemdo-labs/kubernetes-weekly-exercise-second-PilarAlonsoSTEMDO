@@ -10,5 +10,3 @@ spec:
   resources:
     requests:
       storage: {{ .Values.chartPalonso.persistence.laravel.size }}
-
-
