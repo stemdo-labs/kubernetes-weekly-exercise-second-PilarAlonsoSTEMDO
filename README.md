@@ -1,5 +1,5 @@
 # chart-palonso
-![Sin título-2024-04-11-1642](https://github.com/stemdo-labs/kubernetes-weekly-exercise-second-PilarAlonsoSTEMDO/assets/166375061/1b59f79e-891b-48ee-b59e-a0faacebc8a9)
+![Sin título-2024-04-11-1642](https://github.com/stemdo-labs/kubernetes-weekly-exercise-second-PilarAlonsoSTEMDO/assets/166375061/d81ba9ba-06c5-457f-95b3-93d716513597)
 
 ## Descripción
 
